@@ -17,7 +17,7 @@ def urlconf_display(parser, token):
 class URLconfDisplayNode(template.Node):
     def __init__(self, urlpatterns):
         self.urlpatterns = template.Variable(urlpatterns)
-    
+
     def render(self, context):
         try:
             urlpatterns = self.urlpatterns.resolve(context)
@@ -25,7 +25,7 @@ class URLconfDisplayNode(template.Node):
             return '\n'.join(ret_html)
         except template.VariableDoesNotExist:
             return ''
-    
+
     def __urlpatternsToHtml(self, urlpatterns):
         html = []
         html.append("<ol>")
@@ -38,6 +38,8 @@ class URLconfDisplayNode(template.Node):
             elif isinstance(pattern, RegexURLPattern):
                 if pattern.name:
                     html.append("[name='%s']" % pattern.name)
+                html.append('%s.%s' % (pattern.callback.__module__,
+                                       pattern.callback.__name__))
             else:
                 html.append("Error: Pattern %s not valid" % pattern)
             html.append("</li>")
