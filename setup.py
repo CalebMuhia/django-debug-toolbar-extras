@@ -9,6 +9,7 @@ setup(
     url = "http://github.com/crass/django-debug-toolbar-extras/",
     license = "BSD",
     packages = find_packages(),
+    include_package_data = True,
     classifiers = [
         "Development Status :: 4 - Beta",
         "Environment :: Web Environment",
